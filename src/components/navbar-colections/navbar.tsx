@@ -1,7 +1,7 @@
 "use client"
 import { navbarItems } from '@/constants/data'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Heart, ShoppingCart } from 'lucide-react'
 import {
