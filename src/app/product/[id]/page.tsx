@@ -50,7 +50,7 @@ export default function ProductPage() {
   return (
     <div className="bg-white min-h-screen p-4 md:p-10 text-gray-800">
       <div className="grid md:grid-cols-2 gap-8">
-        {/* Product Image */}
+       
         <div className="flex flex-col items-center">
           <Image src={ data?.getSingleFetch?.images[selectedImage] as string} alt="Orange" width={300} height={300} className="rounded-md" />
           <div className="flex gap-2 mt-4">
