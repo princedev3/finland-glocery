@@ -54,3 +54,14 @@ export type Products = {
     ingridents: string | null;
     types:string
 }
+
+
+export type ProductOrder = {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  size: string;
+  color: string;
+  image: string;
+};

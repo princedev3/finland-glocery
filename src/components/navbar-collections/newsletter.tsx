@@ -21,7 +21,7 @@ const Newsletter = () => {
           type="email"
           name="email"
           placeholder="you@example.com"
-          className="flex-1 px-5 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
+          className="flex-1 px-5 py-3 w-full rounded-full bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
         />
         <button
           type="submit"

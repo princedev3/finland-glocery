@@ -28,6 +28,7 @@
     "@stripe/react-stripe-js": "^3.7.0",
     "@stripe/stripe-js": "^7.3.0",
     "@tailwindcss/typography": "^0.5.16",
+    "@tanstack/react-table": "^8.21.3",
     "bcryptjs": "^3.0.2",
     "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.1",

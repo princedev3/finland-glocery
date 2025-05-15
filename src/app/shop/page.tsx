@@ -8,7 +8,7 @@ const Shop = () => {
     const page = "1"
   return (
      <div>
-         <div className="mb-7  px-5 md:px-20">
+         <div className="mb-7 md:px-20">
             <div className="">
 
       <h1 className="text-[30px] font-semibold capitalize text-center  mx-auto my-5">

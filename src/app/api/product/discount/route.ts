@@ -3,7 +3,6 @@ import {  NextResponse } from "next/server";
 
 export const GET = async () => {
   try {
-
   const allProducts = await prisma.product.findMany({
   where: {
     discount: {

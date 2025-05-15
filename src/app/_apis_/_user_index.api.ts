@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 
@@ -36,6 +37,29 @@ forgotPasswordCheck:builder.mutation({
         body:userDetails,
     })
 }),
+   getAllUser: builder.query<{allUser:User[],count:number},string>({
+      query: (page) => ({
+        url: `/user/user-queries?page=${page}`,
+        method: "GET",
+      }),
+      providesTags: ["Users"],
+    }),
+     deleteAUser: builder.mutation({
+      query: (id) => ({
+        url: `/user/user-queries/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Users"],
+    }),
+        updateAUser: builder.mutation({
+      query: ({ id, role }) => ({
+        url: `/user/user-queries/${id}`,
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: { role },
+      }),
+      invalidatesTags: ["Users"],
+    }),
 forgotPasswordChange:builder.mutation({
     query:( userDetails)=>({
          url: `/user/change-password`,
@@ -51,5 +75,8 @@ export const {
  useVerifyEmailMutation,
  useForgotPasswordMutation,
  useForgotPasswordCheckMutation,
- useForgotPasswordChangeMutation
+ useForgotPasswordChangeMutation,
+ useGetAllUserQuery,
+ useDeleteAUserMutation,
+ useUpdateAUserMutation
 } = userApi;
