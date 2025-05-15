@@ -1,0 +1,159 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+model User {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  email            String?            @unique
+  emailVerified    DateTime?
+  image            String?
+  password         String?
+  accounts         Account[]
+  sessions         Session[]
+  Authenticator    Authenticator[]
+  role             UserRole           @default(USER)
+  createdAt        DateTime           @default(now())
+  product          Product[]
+  comment          Comment[]
+  userLikesProduct UserLikesProduct[]
+}
+
+model Account {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String?  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  email      String
+  identifier String?
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token, email])
+}
+
+model Authenticator {
+  credentialID         String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId               String  @db.ObjectId
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, credentialID])
+}
+
+model PasswordResetToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model Product {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  desc             String
+  price            Float
+  colors           String[]
+  sizes            String[]
+  images           String[]
+  userId           String             @db.ObjectId
+  user             User               @relation(fields: [userId], references: [id])
+  quantity         Int
+  cat              String?
+  discount         Int                @default(0)
+  createdAt        DateTime           @default(now())
+  storage          String?
+  ingridents       String?
+  comment          Comment[]
+  userLikesProduct UserLikesProduct[]
+
+  @@index([cat])
+}
+
+model Comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String   @db.ObjectId
+  value     Int
+  comment   String?
+  createdAt DateTime @default(now())
+}
+
+model UserLikesProduct {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  productId String   @db.ObjectId
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([userId, productId])
+}
+
+model Order {
+  id             String      @id @default(auto()) @map("_id") @db.ObjectId
+  product        Json[]
+  paymentStatus  String
+  intentId       String?     @unique
+  amount         Int
+  userId         String?
+  username       String
+  userPhone      String?
+  useremail      String
+  note           String?
+  orderAddress   String
+  deliveryStatus DeliveryNum @default(one)
+  createdAt      DateTime    @default(now())
+}
+
+enum DeliveryNum {
+  one
+  two
+  three
+}
