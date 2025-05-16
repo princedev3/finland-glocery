@@ -6,7 +6,7 @@ export const GET = async () => {
   const allProducts = await prisma.product.findMany({
   where: {
     discount: {
-      gt: 1,
+      gte: 1,
     },
   },
   orderBy: {
