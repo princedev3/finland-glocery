@@ -29,9 +29,9 @@ const [createNewsLetter,{isLoading} ]=useCreateNewsLetterMutation()
   };
 
   return (
-   <section className="w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-20 px-6">
-  <div className="container mx-auto max-w-2xl text-center text-white">
-    <div className="backdrop-blur-md bg-white/5 border border-white/10 rounded-3xl p-10 shadow-2xl">
+   <section className="w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-20 ">
+  <div className="container mx-auto max-w-2xl w-full text-center text-white">
+    <div className="backdrop-blur-md bg-white/5 border border-white/10 rounded-3xl px-5 md:px-10 py-10 shadow-2xl">
       <h1 className="text-4xl md:text-5xl font-extrabold text-teal-400 mb-4">
         Be the First to Know
       </h1>
