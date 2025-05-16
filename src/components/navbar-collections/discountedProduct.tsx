@@ -9,7 +9,7 @@ const DiscountedProduct = ({data}:{data:{allProducts: Product[]}}) => {
   
   return (
     <div className="bg-[#FAFAFA] w-full grid gap-y-4 pb-10">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <h1 className="text-xl md:text-3xl font-semibold capitalize">discounted Product</h1>
         <div className="flex items-center gap-6">
           <CarouselControl

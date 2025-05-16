@@ -10,7 +10,7 @@ const NewProduct = ({ data }: { data: { allProducts: Product[] } }) => {
 
   return (
     <div className="bg-[#FAFAFA] w-full grid gap-y-4 py-10">
-      <div className="flex justify-between px-4">
+      <div className="flex justify-between items-center px-4">
         <h1 className="text-xl md:text-3xl font-semibold">New Arrival</h1>     
            <div className="flex items-center gap-6">
            <CarouselControl
@@ -18,9 +18,7 @@ const NewProduct = ({ data }: { data: { allProducts: Product[] } }) => {
              sliderType="newProduct"
           />
         </div>
-        
       </div>
-
       <div
         ref={sliderRef}
         className="flex gap-4 overflow-x-hidden snap-x snap-mandatory scroll-smooth px-4"
