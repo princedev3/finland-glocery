@@ -7,7 +7,8 @@ import prisma from "@/utils/prisma";
 export const GET = async (req: NextRequest) => {
   try {
     const page = req.nextUrl.searchParams.get("page") || "1";
-    const search = req.nextUrl.searchParams.get("search") || "";
+  const rawEmail = req.nextUrl.searchParams.get("search") || "";
+const search = decodeURIComponent(rawEmail).trim().toLowerCase();
     const session = await auth();
     if (session?.user?.role !== "ADMIN") {
       return NextResponse.json({
@@ -15,13 +16,10 @@ export const GET = async (req: NextRequest) => {
         status: 500,
       });
     }
-    const whereCondition: Prisma.OrderWhereInput = search
-      ? {
-          OR: [
-            { useremail: { contains: search, mode: "insensitive" } },
-          ],
-        }
-      : {};
+    const where = search
+         ? { useremail: { contains: search,  mode: Prisma.QueryMode.insensitive, } }
+         : {};
+
     const POST_PER_PAGE = Number(process.env.POST_PER_PAGE);
     if (isNaN(parseInt(page)) || parseInt(page) < 1) {
       return NextResponse.json({ message: "Invalid page number", status: 400 });
@@ -29,13 +27,14 @@ export const GET = async (req: NextRequest) => {
 
     const [allProducts, count] = await prisma.$transaction([
       prisma.order.findMany({
+        where,
         take: POST_PER_PAGE,
         skip: POST_PER_PAGE * (parseInt(page) - 1),
         orderBy: {
           createdAt: "desc",
         },
       }),
-      prisma.order.count(),
+      prisma.order.count({where}),
     ]);
 
     return NextResponse.json({ allOrders: allProducts, count, status: 200 });

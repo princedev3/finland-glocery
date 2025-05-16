@@ -10,14 +10,15 @@ import {
     SheetTitle,
     SheetTrigger,
   } from "@/components/ui/sheet"
+import { userStore } from '@/provider/user-store';
   
 
 const OpenToggle = () => {
     const [isOpen, setIsOpen] = useState(false);
+     const session = userStore((state) => state.session);
 
   return (
     <div className='md:hidden'>
-   
     <Sheet open={isOpen} onOpenChange={setIsOpen} >
   <SheetTrigger asChild>
   <button
@@ -41,11 +42,17 @@ const OpenToggle = () => {
       </SheetTitle>
       <SheetDescription className='flex flex-col mt-5 justify-center gap-6'>
       {
-                 navbarItems.map(item=>(
-                     <Link key={item.id} href={item.pathName} className="capitalize text-black text-xl font-semibold cursor-pointer">{item.title} </Link>
-                 ))
-             }
-
+                navbarItems.map(item=>{
+                  if(item.title=== "admin"){
+                    if(session && session.user.role==="ADMIN"){
+                      return  <Link   onClick={() => setIsOpen(false)} key={item.id} href={item.pathName} className="capitalize text-lg font-semibold cursor-pointer">{item.title} </Link>
+                    }
+                  }else{
+                  return  <Link onClick={() => setIsOpen(false)} key={item.id} href={item.pathName} className="capitalize text-lg font-semibold cursor-pointer">{item.title} </Link>
+                  }
+                  }
+                )
+            }
       </SheetDescription>
     </SheetHeader>
   </SheetContent>

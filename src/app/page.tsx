@@ -21,7 +21,7 @@ const Home = () => {
  const {data:newArrivalProducts,isLoading:arrivalIsLoading}=useGetNewArrivalProductsQuery(null)
  const {data:discountProducts,isLoading:discountisLoading}= useGetDiscountedProductsQuery(null)
  const{data:testimonialData,isLoading:testimonialIsLoading}=useGetCommentForSiderQuery(null)
- const {data,isLoading}=useGetAllProductQuery(parseInt((page as string) || "1"))
+ const {data,isLoading}=useGetAllProductQuery({page:parseInt((page as string) || "1")})
  if(arrivalIsLoading || isLoading || discountisLoading || testimonialIsLoading){
   return <LoadingSpinner/>
  }

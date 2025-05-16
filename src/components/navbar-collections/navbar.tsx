@@ -96,10 +96,6 @@ const handleLogout = async () => {
     </DropdownMenuItem>
   </DropdownMenuContent>
 </DropdownMenu>
-
-
-  
-
         </div>
     </div>
   )

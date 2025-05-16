@@ -18,9 +18,14 @@ const DiscountedProduct = ({data}:{data:{allProducts: Product[]}}) => {
           />
         </div>
       </div>
-      <div className="flex gap-7 overflow-x-hidden snap-x w-full" ref={sliderRef}>
+      <div className="flex gap-7 overflow-x-hidden snap-x snap-mandatory scroll-smooth  w-full" ref={sliderRef}>
         {data && data.allProducts.length>0 && data.allProducts.map((item) => (
-    <SingleCard key={item.id} {...item} types="discounts" />          
+            <div
+            key={item.id}
+            className="snap-start shrink-0 w-[80%] sm:w-[45%] md:w-[30%] lg:w-[23%]"
+          >
+            <SingleCard key={item.id} {...item} types="discounts" />          
+          </div>
         ))}
       </div>
     </div>

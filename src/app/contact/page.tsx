@@ -29,25 +29,34 @@ export default function ContactPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
+
+
+ 
+
+
+
             <div>
-              <h3 className="text-lg font-semibold text-gray-700">LANDMARKIT</h3>
+              <h3 className="text-lg font-semibold text-gray-700">EXCLUSIVE</h3>
               <p className="text-gray-600 leading-relaxed">
-                Kishore Sapphire<br />
-                6th Floor, Madhapur<br />
-                Hyderabad, 500084
+                Haapaniemenkatu 32B<br />
+                Ground floor<br />
               </p>
             </div>
             <div>
+              
               <div className="flex items-center gap-2">
               <Phone className='w-5 h-5'/>
-              <p className="text-lg text-gray-600"> 999-9999-999</p>
-              </div>
-              <div className="flex items-center gap-2">
-              <Phone className='w-5 h-5'/>
-              <p className="text-lg text-gray-600"> 999-9999-999</p>
+            <a href="tel:+358442459243" className="text-lg text-gray-600 hover:underline">
+    +358442459243
+  </a>
               </div>
           
-              <p className="text-lg text-blue-600 underline">contact@landmarkit.in</p>
+             <a
+  href="mailto:Fidmart.913@gmail.com"
+  className="text-lg text-blue-600 underline hover:text-blue-800"
+>
+  Fidmart.913@gmail.com
+</a>
             </div>
             <div className="bg-teal-100 w-16 h-16 flex items-center justify-center rounded-full">
               <svg className="w-8 h-8 text-teal-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">

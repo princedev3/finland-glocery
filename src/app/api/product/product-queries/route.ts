@@ -3,6 +3,7 @@ import { v2 as cloud } from "cloudinary";
 import streamifier from "streamifier";
 import { auth } from "@/utils/auth";
 import prisma from "@/utils/prisma";
+import { Prisma } from "@prisma/client";
 
 cloud.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -78,19 +79,23 @@ export const POST = async (req: NextRequest) => {
 export const GET = async (req: NextRequest) => {
   try {
       const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
+      const search = req.nextUrl.searchParams.get("search") || "";
     const currentPage = isNaN(page) || page < 1 ? 1 : page;
     const POST_PER_PAGE = Number(process.env.POST_PER_PAGE) || 10;
-
+ const where = search
+      ? { name: { contains: search,  mode: Prisma.QueryMode.insensitive, } }
+      : {};
    const [allProducts, count] = await Promise.all([
 
      prisma.product.findMany({
+         where,
           take: POST_PER_PAGE,
           skip: POST_PER_PAGE * (currentPage - 1),
           orderBy: {
             createdAt: "desc",
           },
         }),
-        prisma.product.count()
+        prisma.product.count({where})
    ] ) 
     return NextResponse.json({ message: { allProducts, count }, status: 200 });
   } catch (error) {

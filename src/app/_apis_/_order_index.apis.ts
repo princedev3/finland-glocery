@@ -24,8 +24,8 @@ export const orderApi = createApi({
       }),
       invalidatesTags: (result, error, { id }) => [{ type: "Order", id }],
     }),
-    getAllOrder: builder.query<{allOrders:Order[],count:number},{page:string,search:string}>({
-      query: ({ page, search }) => ({
+    getAllOrder: builder.query<{allOrders:Order[],count:number},{page:string,search?:string}>({
+      query: ({ page, search="" }) => ({
         url: `/order/order-queries?page=${page}&search=${search}`,
         method: "GET",
       }),

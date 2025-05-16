@@ -13,7 +13,7 @@ const PaymentSuccess = () => {
     useEffect(()=>{
           if (!payment_intent) return; 
         const updateOrder = async()=>{
-          const res=  await fetch(`/api/success?paymentIntent=${payment_intent}`,{
+          const res=  await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/success?paymentIntent=${payment_intent}`,{
              method: "PUT",
       headers: {
         "Content-Type": "application/json",

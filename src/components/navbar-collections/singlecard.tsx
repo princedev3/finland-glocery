@@ -55,7 +55,7 @@ const [createLike] = useCreateLikeMutation();
   };
 
   return ( 
-     <div className="h-[400px] min-w-[260px] border rounded-2xl relative">
+     <div className="h-[400px] min-w-[260px] border shadow-lg rounded-2xl bg-gray-100 relative">
          <div className="absolute  top-4 z-10 transition-all duration-300 right-2">
         {
           types==="products"?
